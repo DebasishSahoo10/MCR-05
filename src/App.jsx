@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext,  useState } from "react";
 import "./App.css";
 import { DataContext } from "./Contexts/DataContext";
 import { NavLink } from "react-router-dom";
@@ -10,7 +10,7 @@ function App() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [inputError, setInputError] = useState(false);
   const [newRecipe, setNewRecipe] = useState({
-    id : "",
+    id: "",
     name: "",
     type: "",
     img: "",
@@ -18,7 +18,6 @@ function App() {
     instructions: "",
   });
   const { recipeState, dispatch } = useContext(DataContext);
-  // console.log(recipeState)
 
   const filteredState = recipeState.filter((recipe) => {
     if (searchFilter === "name") {
@@ -31,7 +30,6 @@ function App() {
       return recipe.type.toLowerCase().includes(searchQueries.toLowerCase());
     }
   });
-  // console.log(filteredState)
 
   const handleNewRecipeSave = () => {
     if (
@@ -140,7 +138,11 @@ function App() {
           <input
             type="text"
             onChange={(e) =>
-              setNewRecipe((prev) => ({ ...prev, img: e.target.value, id : uuid() }))
+              setNewRecipe((prev) => ({
+                ...prev,
+                img: e.target.value,
+                id: uuid(),
+              }))
             }
           />
 

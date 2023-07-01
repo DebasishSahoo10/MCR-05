@@ -7,9 +7,7 @@ export const SelectedRecipe = () => {
   const { recipeState } = useContext(DataContext);
   console.log(recipeState);
   const { recipeID } = useParams();
-  console.log(recipeID);
   const selectedRecipe = recipeState.filter((recipe) => recipe.id == recipeID);
-  console.log(selectedRecipe);
   return (
     <>
       <h1>Your Selected Recipe</h1>

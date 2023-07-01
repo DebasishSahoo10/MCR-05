@@ -43,15 +43,24 @@ const recipeData = [
 export const DataContext = createContext();
 const handleRecipe = (state, action) => {
   switch (action.type) {
-    case "ADD_RECIPE" : return [...state, action.payload]
+    case "SET_RECIPE" : return action.payload
+    case "ADD_RECIPE" : {
+      localStorage.setItem("recipes", JSON.stringify([...state, action.payload]))
+      return [...state, action.payload]
+    }
     default: return state;
   }
 };
 export const DataProvider = ({ children }) => {
-  const [recipeState, dispatch] = useReducer(handleRecipe, recipeData);
+  const [recipeState, dispatch] = useReducer(handleRecipe, []);
   useEffect(()=>{
-    localStorage.setItem("recipeArray", JSON.stringify(recipeState))
-  },[recipeState])
+    const existingRecipies = JSON.parse(localStorage.getItem("recipes"))
+    if (existingRecipies) {
+      dispatch({type : "SET_RECIPE", payload : existingRecipies})
+    } else {
+      dispatch({type : "SET_RECIPE", payload : recipeData})
+    }
+  },[])
   return (
     <>
       <DataContext.Provider value={{ recipeState, dispatch }}>
