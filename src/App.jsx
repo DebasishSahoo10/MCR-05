@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import "./App.css";
 import { DataContext } from "./Contexts/DataContext";
 import { NavLink } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 
 function App() {
   const [searchFilter, setSearchFilter] = useState("name");
@@ -9,6 +10,7 @@ function App() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [inputError, setInputError] = useState(false);
   const [newRecipe, setNewRecipe] = useState({
+    id : "",
     name: "",
     type: "",
     img: "",
@@ -138,7 +140,7 @@ function App() {
           <input
             type="text"
             onChange={(e) =>
-              setNewRecipe((prev) => ({ ...prev, img: e.target.value }))
+              setNewRecipe((prev) => ({ ...prev, img: e.target.value, id : uuid() }))
             }
           />
 
