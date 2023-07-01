@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
 const recipeData = [
   {
@@ -49,6 +49,9 @@ const handleRecipe = (state, action) => {
 };
 export const DataProvider = ({ children }) => {
   const [recipeState, dispatch] = useReducer(handleRecipe, recipeData);
+  useEffect(()=>{
+    localStorage.setItem("recipeArray", JSON.stringify(recipeState))
+  },[recipeState])
   return (
     <>
       <DataContext.Provider value={{ recipeState, dispatch }}>
